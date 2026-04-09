@@ -16,4 +16,4 @@ A Minecraft mod that introduces a wound system that limits natural regeneration.
 - Special food bypass: wound-related foods can be consumed even when full
 
 ## Status
-Core gameplay loop complete. UI and polish in progress.
+Core gameplay loop complete. UI and polish in progress. Additional food items planned. Sleep recovery system planned. 
