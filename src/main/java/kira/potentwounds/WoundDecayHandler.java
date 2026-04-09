@@ -14,18 +14,44 @@ public final class WoundDecayHandler {
 
     public static void tickPlayer(ServerPlayer player) {
         float rawWounds = WoundManager.getWounds(player);
+        int decayDelay = WoundManager.getDecayDelay(player);
+
+//        PotentWounds.LOGGER.info(
+//                "DECAY tick start -> player: {}, raw: {}, applied: {}, delay: {}",
+//                player.getName().getString(),
+//                rawWounds,
+//                WoundManager.getAppliedWounds(player),
+//                decayDelay
+//        );
 
         if (rawWounds <= 0.0f) {
+//            PotentWounds.LOGGER.info("DECAY early return (no wounds) -> {}", player.getName().getString());
             return;
         }
 
-        int decayDelay = WoundManager.getDecayDelay(player);
         if (decayDelay > 0) {
             int newDelay = Math.max(0, decayDelay - 20);
             WoundManager.setDecayDelay(player, newDelay);
 
+            float currentRawWounds = WoundManager.getWounds(player);
             float appliedWounds = WoundManager.getAppliedWounds(player);
-            ServerPlayNetworking.send(player, new WoundSyncPayload(rawWounds, appliedWounds, newDelay));
+
+//            PotentWounds.LOGGER.info(
+//                    "DECAY delay branch -> player: {}, raw: {}, applied: {}, old delay: {}, new delay: {}",
+//                    player.getName().getString(),
+//                    currentRawWounds,
+//                    appliedWounds,
+//                    decayDelay,
+//                    newDelay
+//            );
+
+            ServerPlayNetworking.send(player, new WoundSyncPayload(currentRawWounds, appliedWounds, newDelay));
+            return;
+        }
+
+        rawWounds = WoundManager.getWounds(player);
+        if (rawWounds <= 0.0f) {
+//            PotentWounds.LOGGER.info("DECAY re-read return (cleared before decay) -> {}", player.getName().getString());
             return;
         }
 
@@ -39,20 +65,25 @@ public final class WoundDecayHandler {
         float newRawWounds = Math.max(0.0f, rawWounds - decayAmount);
 
         if (newRawWounds == rawWounds) {
+//            PotentWounds.LOGGER.info("DECAY no-op -> {}", player.getName().getString());
             return;
         }
 
         WoundManager.setWounds(player, newRawWounds);
 
+        float currentRawWounds = WoundManager.getWounds(player);
         float appliedWounds = WoundManager.getAppliedWounds(player);
-        ServerPlayNetworking.send(player, new WoundSyncPayload(newRawWounds, appliedWounds, 0));
+        int currentDelay = WoundManager.getDecayDelay(player);
 
-        // DEBUG: passive wound decay tick
-        // PotentWounds.LOGGER.info(
-        //         "Decay tick for {} -> raw: {}, applied: {}",
-        //         player.getName().getString(),
-        //         newRawWounds,
-        //         appliedWounds
-        // );
+//        PotentWounds.LOGGER.info(
+//                "DECAY send -> player: {}, new raw local: {}, saved raw: {}, applied: {}, delay: {}",
+//                player.getName().getString(),
+//                newRawWounds,
+//                currentRawWounds,
+//                appliedWounds,
+//                currentDelay
+//        );
+
+        ServerPlayNetworking.send(player, new WoundSyncPayload(currentRawWounds, appliedWounds, currentDelay));
     }
 }

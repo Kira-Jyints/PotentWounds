@@ -11,6 +11,15 @@ public final class WoundFoodHandler {
     private static final int WEAK_RECUPERATION_DURATION_TICKS = 20 * 60; // 1 minute
     private static final int SOOTHED_DURATION_TICKS = 20 * 90; // 90 seconds
     private static final int SOOTHED_LITE_DURATION_TICKS = 20 * 30; // 30 seconds
+    public static boolean isWoundFood(Item item) {
+        return item == Items.HONEY_BOTTLE
+                || item == Items.DRIED_KELP
+                || item == Items.BAKED_POTATO
+                || item == Items.PUMPKIN_PIE
+                || item == Items.GOLDEN_APPLE
+                || item == Items.ENCHANTED_GOLDEN_APPLE
+                || item == Items.GOLDEN_CARROT;
+    }
 
     private WoundFoodHandler() {
     }
@@ -55,10 +64,32 @@ public final class WoundFoodHandler {
         if (item == Items.GOLDEN_APPLE
                 || item == Items.ENCHANTED_GOLDEN_APPLE
                 || item == Items.GOLDEN_CARROT) {
-            // DEBUG: instant wound clear foods
-            // PotentWounds.LOGGER.info("Instant wound clear triggered by {}", item);
+//            PotentWounds.LOGGER.info(
+//                    "GOLDEN CLEAR start -> player: {}, raw before: {}, applied before: {}, delay before: {}",
+//                    player.getName().getString(),
+//                    WoundManager.getWounds(player),
+//                    WoundManager.getAppliedWounds(player),
+//                    WoundManager.getDecayDelay(player)
+//            );
+
+            WoundManager.clearWounds(player);
+
+//            PotentWounds.LOGGER.info(
+//                    "GOLDEN CLEAR after clear -> player: {}, raw after: {}, applied after: {}, delay after: {}",
+//                    player.getName().getString(),
+//                    WoundManager.getWounds(player),
+//                    WoundManager.getAppliedWounds(player),
+//                    WoundManager.getDecayDelay(player)
+//            );
 
             ServerPlayNetworking.send(player, new WoundSyncPayload(0.0f, 0.0f, 0));
+
+//            PotentWounds.LOGGER.info(
+//                    "GOLDEN CLEAR packet sent -> player: {}, raw: 0.0, applied: 0.0, delay: 0",
+//                    player.getName().getString()
+//            );
+
+            return;
         }
 
         if (item == Items.BAKED_POTATO) {

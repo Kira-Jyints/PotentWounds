@@ -1,6 +1,5 @@
 package kira.potentwounds.mixin;
 
-import kira.potentwounds.PotentWounds;
 import kira.potentwounds.WoundFoodHandler;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,11 +27,11 @@ public class ConsumableMixin {
         Item item = stack.getItem();
 
         // DEBUG: confirm onConsume mixin fires
-        PotentWounds.LOGGER.info(
-                "Consumable hook fired for player {} with item {}",
-                player.getName().getString(),
-                item
-        );
+        //PotentWounds.LOGGER.info(
+        //        "Consumable hook fired for player {} with item {}",
+        //        player.getName().getString(),
+        //        item
+        //);
 
         WoundFoodHandler.handleConsumedFood(player, item);
     }

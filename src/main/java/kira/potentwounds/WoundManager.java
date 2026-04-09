@@ -26,6 +26,7 @@ public final class WoundManager {
     }
 
     public static void clearWounds(ServerPlayer player) {
+        PotentWounds.LOGGER.info("CLEAR_WOUNDS called for {}", player.getName().getString());
         WoundSavedData.get(player).clearWounds(player);
         WoundSavedData.get(player).clearDecayDelay(player);
     }
