@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"package": "kira.potentwounds.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"FoodDataMixin",
+		"ConsumableMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

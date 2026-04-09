@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "potentwounds",
+	"version": "${version}",
+	"name": "Potent Wounds",
+	"description": "A Fabric mod for Minecraft 26.1 adding in a wound system. Wounds reduce your maximum natural regeneration to incentivize other forms of healing.",
+	"authors": [
+		"Kira-Jyints"
+	],
+	"contact": {
+		"homepage": "Discord Server: https://discord.gg/BkSp4MZYzw",
+		"sources": "https://github.com/Kira-Jyints/potent-wounds"
+	},
+	"license": "MIT",
+	"icon": "assets/potentwounds/icon.png",
+	"environment": "*",
+	"entrypoints": {
+      "client": [
+          "kira.potentwounds.client.PotentWoundsClient"
+      ],
+      "main": [
+          "kira.potentwounds.PotentWounds"
+      ]
+    },
+	"mixins": [
+		"potentwounds.mixins.json",
+		{
+			"config": "potentwounds.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.18.6",
+		"minecraft": "~26.1",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
