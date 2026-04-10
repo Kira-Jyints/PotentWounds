@@ -3,10 +3,10 @@
 	"package": "kira.potentwounds.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"FoodDataMixin",
-		"ConsumableMixin",
-		"ItemUseMixin"
-	],
+      "ConsumableMixin",
+      "FoodDataMixin",
+      "ItemUseMixin"
+    ],
 	"injectors": {
 		"defaultRequire": 1
 	},

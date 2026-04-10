@@ -3,7 +3,7 @@
 	"id": "potentwounds",
 	"version": "${version}",
 	"name": "Potent Wounds",
-	"description": "A Fabric mod for Minecraft 26.1 adding in a wound system. Wounds reduce your maximum natural regeneration to incentivize other forms of healing.",
+	"description": "A Fabric mod for Minecraft 26.1.2 adding in a wound system. Wounds reduce your maximum natural regeneration to incentivize other forms of healing.",
 	"authors": [
 		"Kira-Jyints"
 	],
@@ -30,8 +30,8 @@
 		}
 	],
 	"depends": {
-		"fabricloader": ">=0.18.6",
-		"minecraft": "~26.1",
+		"fabricloader": ">=0.19.1",
+		"minecraft": "~26.1.2",
 		"java": ">=25",
 		"fabric-api": "*"
 	}
